@@ -1,0 +1,19 @@
+pipeline {
+    parameters {
+        booleanParam(name: 'CLEAN_WORKSPACE', defaultValue: true, description: 'Clean workspace before build')
+    }
+    stages {
+        stage('Prepare') {
+            steps {
+                script {
+                    if (params.CLEAN_WORKSPACE) {
+                        echo 'Cleaning workspace...'
+                        cleanWs()
+                    } else {
+                        echo 'Skipping workspace clean.'
+                    }
+                }
+            }
+        }
+    }
+}
